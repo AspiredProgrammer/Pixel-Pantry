@@ -5,11 +5,13 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/">
+        <div className="inline-block rounded-md transition-colors duration-200 hover:bg-[#a0d6cb] p-1">
   <img
     src="/assets/plogo.png"
     alt="Pixel Pantry Logo"
     className="h-16 w-auto object-contain"
   />
+  </div>
 </Link>
         <ul className="flex space-x-6">
           {[
