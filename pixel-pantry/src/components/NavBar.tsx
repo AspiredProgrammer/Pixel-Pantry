@@ -21,7 +21,7 @@ const Navbar = () => {
             <li key={label}>
               <Link
                 href={href}
-                className="relative font-semibold text-[#032f3c] hover:text-[#10898d] transition-all duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[3px] after:bg-[#10898d] after:transition-all after:duration-200"
+                className="relative font-semibold text-[#032f3c] hover:text-[#a0d6cb] transition-all duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[3px] after:bg-[#a0d6cb] after:transition-all after:duration-200"
               >
                 {label}
               </Link>
