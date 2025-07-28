@@ -1,9 +1,15 @@
 //Searching function
+
 //WORK IN PROGRESS
-export const APIService = async (query: string) => {
+export default async function Services(query: string) {
+
+  const headerParameters = {
+    'x-api-key': process.env.API_KEY
+  }
+
   const response = await fetch(
-    // `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=20&q=${query}`
-    `https://api.spoonacular.com/recipes/complexSearch?query=${query}`,
+    `https://api.spoonacular.com/recipes/findByIngredients?query=${query}`,
+    //  header: headerParameters
   );
   const data = await response.json();
   return data.hits;
