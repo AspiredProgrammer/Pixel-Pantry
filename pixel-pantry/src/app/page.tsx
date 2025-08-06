@@ -6,8 +6,10 @@ import SearchBar from "@/components/searchBar";
 
 export default function Home() {
   return (
-    <div>
-      <SearchBar/>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100">
+      <div className="container mx-auto px-4 pt-8 pb-4">
+        <SearchBar size="lg" className="mb-8" />
+      </div>
       <LandingPage />
     </div>
   );
