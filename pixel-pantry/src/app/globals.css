@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/*Wallpaper custom class*/
+.wallpaper-bg {
+  background-image: url('/assets/wallpaper.jpg');
+  background-size: auto;
+  background-position: center;
+  background-repeat: repeat;
+}
