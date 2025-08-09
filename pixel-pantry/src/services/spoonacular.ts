@@ -37,6 +37,41 @@ export interface SearchResponse {
     totalResults: number;
 }
 
+export interface Ingredient {
+    id: number;
+    aisle: string;
+    image: string;
+    consistency: string;
+    name: string;
+    original: string;
+    amount: number;
+    unit: string;
+}
+
+export interface InstructionStep {
+    number: number;
+    step: string;
+}
+
+export interface AnalyzedInstruction {
+    name: string;
+    steps: InstructionStep[];
+}
+
+export interface FullRecipe {
+    id: number;
+    title: string;
+    image: string;
+    imageType: string;
+    readyInMinutes: number;
+    servings: number;
+    extendedIngredients: Ingredient[];
+    summary: string;
+    instructions: string;
+    analyzedInstructions: AnalyzedInstruction[];
+    sourceUrl: string;
+}
+
 export const searchRecipes = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
     if (!API_KEY) {
         throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');

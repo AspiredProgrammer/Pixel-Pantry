@@ -76,7 +76,7 @@ export default function SearchBar({
                         alt="Search icon"
                         width={iconSizes[size].width}
                         height={iconSizes[size].height}
-                        className="opacity-70"
+                        className="opacity-70 z-20"
                     />
                 </div>
                 <input
