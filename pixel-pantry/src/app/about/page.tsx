@@ -10,22 +10,22 @@ export default function About() {
 
         <ul className="list-disc pl-5 space-y-4 text-base">
           <li>
-            🔍 <strong>Smart Search:</strong> Find recipes by keyword or by entering ingredients you already have at home.
+             <strong>Smart Search:</strong> Find recipes by keyword or by entering ingredients you already have at home.
           </li>
           <li>
-            🥗 <strong>Personalized Filters:</strong> Filter by dietary needs (like vegetarian or gluten-free), prep time, and difficulty.
+             <strong>Personalized Filters:</strong> Filter by dietary needs (like vegetarian or gluten-free), prep time, and difficulty.
           </li>
           <li>
-            📋 <strong>Detailed Views:</strong> Get full instructions, ingredients, prep/cook time, difficulty level, and photos.
+            <strong>Detailed Views:</strong> Get full instructions, ingredients, prep/cook time, difficulty level, and photos.
           </li>
           <li>
-            ❤️ <strong>Favorites:</strong> Save your favorite recipes for quick access anytime.
+             <strong>Favorites:</strong> Save your favorite recipes for quick access anytime.
           </li>
           <li>
-            📤 <strong>Share & Connect:</strong> Easily share recipes with friends via links or social media.
+             <strong>Share & Connect:</strong> Easily share recipes with friends via links or social media.
           </li>
           <li>
-            ⚡ <strong>Fast & Responsive:</strong> Enjoy quick load times and a seamless experience on any device.
+             <strong>Fast & Responsive:</strong> Enjoy quick load times and a seamless experience on any device.
           </li>
         </ul>
 
