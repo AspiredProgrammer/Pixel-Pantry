@@ -1,7 +1,7 @@
 export default function About() {
   return (
-    <main className="bg-[white] min-h-screen px-6 py-12 text-[#032f3c] flex-grow">
-      <div className="max-w-4xl mx-auto">
+    <main className="wallpaper-bg min-h-3/4 px-6 py-12 text-[#032f3c] flex-grow">
+      <div className="max-w-4xl mx-auto bg-white/90 rounded-xl p-8 shadow-lg">
         <h1 className="text-4xl font-bold mb-6 text-center">About Pixel Pantry</h1>
 
         <p className="text-lg mb-6">
