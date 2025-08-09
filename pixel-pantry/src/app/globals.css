@@ -31,4 +31,6 @@ body {
   background-size: auto;
   background-position: center;
   background-repeat: repeat;
+  background-color: rgba(255, 255, 255, 0.8); /* white with 40% opacity */
+  background-blend-mode: overlay; /* blends the color and image */
 }
