@@ -1,4 +1,5 @@
 // Spoonacular API service
+
 const API_KEY = process.env.NEXT_PUBLIC_SPOONACULAR_API_KEY;
 const BASE_URL = 'https://api.spoonacular.com/recipes';
 
@@ -70,7 +71,45 @@ export interface FullRecipe {
     instructions: string;
     analyzedInstructions: AnalyzedInstruction[];
     sourceUrl: string;
+
+    // NEW FIELDS
+    vegetarian: boolean;
+    vegan: boolean;
+    healthScore: number;
+    cookingMinutes: number;
 }
+
+export interface Nutrient {
+    name: string;
+    amount: number;
+    unit: string;
+    percentOfDailyNeeds?: number;
+}
+
+export interface IngredientNutrition {
+    id: number;
+    name: string;
+    amount: number;
+    unit: string;
+    nutrients: Nutrient[];
+}
+
+export interface NutritionWidget {
+    nutrients: Nutrient[];
+    properties: { name: string; amount: number; unit: string }[];
+    flavonoids: { name: string; amount: number; unit: string }[];
+    ingredients: IngredientNutrition[];
+    caloricBreakdown: {
+        percentProtein: number;
+        percentFat: number;
+        percentCarbs: number;
+    };
+    weightPerServing: {
+        amount: number;
+        unit: string;
+    };
+}
+
 
 export const searchRecipes = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
     if (!API_KEY) {
@@ -128,4 +167,12 @@ export const getRecipeById = async (id: number) => {
         console.error('Error fetching recipe:', error);
         throw error;
     }
-}; 
+};
+
+export const getNutritionWidgetById = async (id: number) => {
+    if(!API_KEY) throw new Error('API Key missing');
+    const params = new URLSearchParams({apiKey: API_KEY});
+    const response =  await fetch(`${BASE_URL}/${id}/nutritionWidget.json?${params}`);
+    if(!response.ok) throw new Error(`Failed to fetch nutrition data: ${response.status}`)
+    return response.json();
+}

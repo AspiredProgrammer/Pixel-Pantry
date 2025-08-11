@@ -18,7 +18,7 @@ export default function LandingPage() {
                     sizes="(min-width: 1024px) 1600px, (min-width: 500px) 860px, (max-width: 499px) 430px"
                 />
                 {/* Overlay heading */}
-                <h1 className="absolute bg-white px-3 pt-1 rounded-t-lg flex bottom-0 left-1/2 transform -translate-x-1/2 mb-0 font-bold text-black
+                <h1 className="absolute whitespace-nowrap bg-white px-3 pt-1 rounded-t-lg flex bottom-0 left-1/2 transform -translate-x-1/2 mb-0 font-bold text-black
                    text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl">
                     Welcome to <span className="ml-2 text-yellow-600">Pixel Pantry</span>
                 </h1>
