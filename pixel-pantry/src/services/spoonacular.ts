@@ -111,7 +111,8 @@ export interface NutritionWidget {
 }
 
 
-export const searchRecipes = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+// Search for recipes by ingredients (original function)
+export const searchRecipesByIngredients = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
     if (!API_KEY) {
         throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
     }
@@ -138,6 +139,66 @@ export const searchRecipes = async (query: string, offset: number = 0, number: n
         return data;
     } catch (error) {
         console.error('Error searching recipes:', error);
+        throw error;
+    }
+};
+
+// Search for recipes by dish name or general terms
+export const searchRecipesByDish = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+    if (!API_KEY) {
+        throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
+    }
+
+    const params = new URLSearchParams({
+        apiKey: API_KEY,
+        query: query,
+        offset: offset.toString(),
+        number: number.toString(),
+        addRecipeInformation: 'true',
+        fillIngredients: 'true',
+        instructionsRequired: 'true',
+        addRecipeNutrition: 'true',
+        sort: 'popularity',
+        sortDirection: 'desc'
+    });
+
+    try {
+        const response = await fetch(`${BASE_URL}/complexSearch?${params}`);
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error searching recipes:', error);
+        throw error;
+    }
+};
+
+// Combined search function that tries both approaches
+export const searchRecipes = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+    if (!API_KEY) {
+        throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
+    }
+
+    // First try searching by dish name (more general search)
+    try {
+        const dishResults = await searchRecipesByDish(query, offset, number);
+        if (dishResults.results.length > 0) {
+            return dishResults;
+        }
+    } catch (error) {
+        console.log('Dish search failed, trying ingredient search...');
+    }
+
+    // If no results or error, try ingredient search
+    try {
+        const ingredientResults = await searchRecipesByIngredients(query, offset, number);
+        return ingredientResults;
+    } catch (error) {
+        console.error('Both search methods failed:', error);
         throw error;
     }
 };
@@ -170,9 +231,9 @@ export const getRecipeById = async (id: number) => {
 };
 
 export const getNutritionWidgetById = async (id: number) => {
-    if(!API_KEY) throw new Error('API Key missing');
-    const params = new URLSearchParams({apiKey: API_KEY});
-    const response =  await fetch(`${BASE_URL}/${id}/nutritionWidget.json?${params}`);
-    if(!response.ok) throw new Error(`Failed to fetch nutrition data: ${response.status}`)
+    if (!API_KEY) throw new Error('API Key missing');
+    const params = new URLSearchParams({ apiKey: API_KEY });
+    const response = await fetch(`${BASE_URL}/${id}/nutritionWidget.json?${params}`);
+    if (!response.ok) throw new Error(`Failed to fetch nutrition data: ${response.status}`)
     return response.json();
 }

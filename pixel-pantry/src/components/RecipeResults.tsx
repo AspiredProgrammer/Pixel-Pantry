@@ -32,7 +32,7 @@ export default function RecipeResults({ recipes, loading, error }: RecipeResults
         return (
             <div className="text-center py-8">
                 <div className="text-gray-500 text-lg">No recipes found</div>
-                <div className="text-gray-400 text-sm mt-2">Try searching for different ingredients</div>
+                <div className="text-gray-400 text-sm mt-2">Try searching for different dishes, ingredients, or cuisines</div>
             </div>
         );
     }
@@ -55,10 +55,20 @@ export default function RecipeResults({ recipes, loading, error }: RecipeResults
                             <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
                                 {recipe.title}
                             </h3>
-
-                            {recipe.usedIngredients.length > 0 && (
+                            <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
+                                <span>Likes: {recipe.likes}</span>
+                                {recipe.usedIngredientCount > 0 && (
+                                    <div className="flex items-center space-x-2">
+                                        <span className="text-green-600">✓ {recipe.usedIngredientCount}</span>
+                                        {recipe.missedIngredientCount > 0 && (
+                                            <span className="text-red-500">✗ {recipe.missedIngredientCount}</span>
+                                        )}
+                                    </div>
+                                )}
+                            </div>
+                            {recipe.usedIngredients && recipe.usedIngredients.length > 0 && (
                                 <div className="mt-3">
-                                    <div className="text-xs text-gray-500 mb-1">Used ingredients:</div>
+                                    <div className="text-xs text-gray-500 mb-1">Key ingredients:</div>
                                     <div className="flex flex-wrap gap-1">
                                         {recipe.usedIngredients.slice(0, 3).map((ingredient, index) => (
                                             <span key={index} className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
@@ -67,6 +77,21 @@ export default function RecipeResults({ recipes, loading, error }: RecipeResults
                                         ))}
                                         {recipe.usedIngredients.length > 3 && (
                                             <span className="text-xs text-gray-500">+{recipe.usedIngredients.length - 3} more</span>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                            {recipe.missedIngredients && recipe.missedIngredients.length > 0 && (
+                                <div className="mt-2">
+                                    <div className="text-xs text-gray-500 mb-1">Missing ingredients:</div>
+                                    <div className="flex flex-wrap gap-1">
+                                        {recipe.missedIngredients.slice(0, 2).map((ingredient, index) => (
+                                            <span key={index} className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+                                                {ingredient.name}
+                                            </span>
+                                        ))}
+                                        {recipe.missedIngredients.length > 2 && (
+                                            <span className="text-xs text-gray-500">+{recipe.missedIngredients.length - 2} more</span>
                                         )}
                                     </div>
                                 </div>
