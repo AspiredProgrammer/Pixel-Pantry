@@ -15,7 +15,7 @@ interface SearchBarProps {
 
 export default function SearchBar({
     onSearch,
-    placeholder = "Search recipes by ingredient...",
+    placeholder = "Search for dishes, ingredients, or cuisines...",
     className = "",
     size = 'md'
 }: SearchBarProps) {
@@ -76,7 +76,7 @@ export default function SearchBar({
                         alt="Search icon"
                         width={iconSizes[size].width}
                         height={iconSizes[size].height}
-                        className="opacity-70 z-20"
+                        className="opacity-70"
                     />
                 </div>
                 <input

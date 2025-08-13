@@ -1,8 +1,39 @@
+# Pixel Pantry
+
+A Next.js recipe search application that helps you find recipes based on ingredients you have available.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Prerequisites
+
+Before running this project, you'll need to:
+
+1. **Get a Spoonacular API Key**: 
+   - Go to [Spoonacular API](https://spoonacular.com/food-api)
+   - Sign up for a free account
+   - Get your API key from your dashboard
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd pixel-pantry
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**:
+   - Create a `.env.local` file in the root directory
+   - Add your Spoonacular API key:
+   ```
+   NEXT_PUBLIC_SPOONACULAR_API_KEY=your_api_key_here
+   ```
+
+4. **Run the development server**:
 
 ```bash
 npm run dev
