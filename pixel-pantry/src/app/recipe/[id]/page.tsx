@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import {getRecipeById, FullRecipe, getNutritionWidgetById, NutritionWidget} from "@/services/spoonacular";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import React, { SVGProps } from "react";
 
 export default function RecipePage() {
@@ -23,6 +23,16 @@ export default function RecipePage() {
         if (recipe.vegetarian) return "vegetarian";
         return "nonVeg";
     });
+
+    const liRefs = useRef<(HTMLLIElement | null)[]>([]);
+    const [heights, setHeights] = useState<number[]>([]);
+
+    useEffect(() => {
+        requestAnimationFrame(() => {
+            const newHeights = liRefs.current.map((li) => (li ? li.offsetHeight : 0));
+            setHeights(newHeights);
+        });
+    }, [recipe]);
 
     //tabs
     const tabs = [
@@ -402,7 +412,8 @@ export default function RecipePage() {
                             </ul>
                         </div>
                         {/* Nutrition Widget in col 3 */}
-                        <div className="bg-gray-200 shadow-xl rounded p-4 mt-10 overflow-scroll overflow-x-hidden max-h-80">
+                        <div
+                            className="bg-gray-200 shadow-xl rounded p-4 mt-10 overflow-scroll overflow-x-hidden max-h-80">
                             <h2 className="text-xl font-semibold mb-2 text-gray-500">Nutrition Facts</h2>
                             {nutritionWidget ? (
                                 <ul className="text-gray-600">
@@ -422,32 +433,49 @@ export default function RecipePage() {
                             )}
                         </div>
                     </div>
-                        {/*prep*/}
-                        <h2 className={"mt-10 text-xl font-semibold mb-2 text-gray-500"}>Preparation</h2>
-                        <ol className={"text-gray-500 list-decimal list-inside [&>li]:rounded-full [&>li]:shadow-lg [&>li]:p-7 [&>li]:m-2 [&>li]:bg-gradient-to-r [&>li]:from-amber-10 [&>li]:to-amber-50 "}>
-                            {recipe.analyzedInstructions[0].steps.map((step) => (
-                                <li key={step.number} className="flex items-start gap-4">
-                                      <span className="bg-amber-200 rounded-full w-8 h-8 flex items-center justify-center font-bold text-gray-800 shadow">
-                                        {step.number}
-                                      </span>
-                                    <p className="flex-1">{step.step}</p>
-                                </li>
-                            ))}
-                        </ol>
-
-
-                        {recipe.sourceUrl && (
-                            <a
-                                href={recipe.sourceUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-block mt-6 text-green-600 hover:underline"
+                    {/*prep*/}
+                    <h2 className={"mt-10 text-xl font-semibold mb-2 text-gray-500"}>Preparation</h2>
+                    <ol className="text-gray-700 list-decimal list-inside space-y-4">
+                        {recipe.analyzedInstructions[0].steps.map((step, index) => (
+                            <li
+                                key={step.number}
+                                className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 pb-4 pr-4 pl-4 pt-0 sm:p-6 pl-14 sm:pl-16 overflow-hidden rounded-lg
+                                bg-gradient-to-r from-gray-300/40 via-slate-400/40 to-gray-300/50
+                                backdrop-blur-md shadow-lg"
                             >
-                                View full recipe source
-                            </a>
-                        )}
-                    </div>
+                                {/* Top highlight bar */}
+                                <div
+                                    className="absolute top-0 left-0 w-full h-2 sm:h-3 rounded-t-lg bg-gradient-to-r from-amber-100 via-amber-300/50 to-amber-100"
+                                ></div>
+
+                                {/* Number bubble */}
+                                <span
+                                    className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 bg-white/60 backdrop-blur-sm rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center font-bold text-gray-900 shadow-md z-10 text-sm sm:text-base"
+                                >
+                                 {step.number}
+                                </span>
+
+                                {/* Step text */}
+                                <p className="relative z-10 text-gray-900 text-sm sm:text-base leading-snug">
+                                    {step.step}
+                                </p>
+                            </li>
+                        ))}
+                    </ol>
+
+
+                    {recipe.sourceUrl && (
+                        <a
+                            href={recipe.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block mt-6 text-green-600 hover:underline"
+                        >
+                            View full recipe source
+                        </a>
+                    )}
                 </div>
             </div>
-            );
-            }
+        </div>
+    );
+}
