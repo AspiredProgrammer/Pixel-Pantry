@@ -71,7 +71,7 @@ export interface FullRecipe {
     instructions: string;
     analyzedInstructions: AnalyzedInstruction[];
     sourceUrl: string;
-
+    cuisines: Array<string>;
     // NEW FIELDS
     vegetarian: boolean;
     vegan: boolean;
@@ -112,7 +112,7 @@ export interface NutritionWidget {
 
 
 // Search for recipes by ingredients (original function)
-export const searchRecipesByIngredients = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+export const searchRecipesByIngredients = async (query: string, offset: number = 0, number: number = 15): Promise<SearchResponse> => {
     if (!API_KEY) {
         throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
     }
@@ -144,7 +144,7 @@ export const searchRecipesByIngredients = async (query: string, offset: number =
 };
 
 // Search for recipes by dish name or general terms
-export const searchRecipesByDish = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+export const searchRecipesByDish = async (query: string, offset: number = 0, number: number = 15): Promise<SearchResponse> => {
     if (!API_KEY) {
         throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
     }
@@ -178,7 +178,7 @@ export const searchRecipesByDish = async (query: string, offset: number = 0, num
 };
 
 // Combined search function that tries both approaches
-export const searchRecipes = async (query: string, offset: number = 0, number: number = 10): Promise<SearchResponse> => {
+export const searchRecipes = async (query: string, offset: number = 0, number: number = 15): Promise<SearchResponse> => {
     if (!API_KEY) {
         throw new Error('Spoonacular API key is not configured. Please add NEXT_PUBLIC_SPOONACULAR_API_KEY to your .env.local file');
     }
@@ -191,6 +191,7 @@ export const searchRecipes = async (query: string, offset: number = 0, number: n
         }
     } catch (error) {
         console.log('Dish search failed, trying ingredient search...');
+        throw error;
     }
 
     // If no results or error, try ingredient search
