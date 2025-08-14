@@ -36,10 +36,11 @@ export default function RecipePage() {
 
     //tabs
     const tabs = [
-        { id: "vegan", label: "🌱 Vegan" },
-        { id: "vegetarian", label: "🥕 Vegetarian" },
-        { id: "nonVeg", label: "🍖 Non-Vegetarian" },
+        { id: "vegan", icon: VeganIcon, label: "Vegan" },
+        { id: "vegetarian", icon: VegetarianIcon, label: "Vegetarian" },
+        { id: "nonVeg", icon: NonVegetarianIcon, label: "Non-Vegetarian" },
     ];
+
 
     // SVGs
     function FireIcon(props: SVGProps<SVGSVGElement>) {
@@ -288,12 +289,12 @@ export default function RecipePage() {
                 <div className="flex flex-col space-y-2">
                     {/* Tabs */}
                     <div className={"flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 sticky top-20 md:top-20 bg-white rounded"}>
-                        {tabs.map(({ id, label }) => (
+                        {tabs.map(({ id, label, icon: Icon }) => (
                             <div key={id} className={"bg-white rounded"}>
                                 <button
                                     key={id}
                                     onClick={() => setSelectedTab(id)}
-                                    className={`py-1 px-2 mb-1 md:py-2 md:px-4 text-left font-semibold text-lg rounded pointer-events-none cursor-default
+                                    className={`py-1 px-2 gap-2 mb-1 flex items-center md:py-2 md:px-4 text-left font-semibold text-lg rounded pointer-events-none cursor-default
                                     ${
                                         selectedTab === id
                                             ? "scale-110 border-b-4 border-amber-500 text-amber-600 bg-amber-100 shadow-md"
@@ -306,6 +307,7 @@ export default function RecipePage() {
                                     role="tab"
                                     disabled={selectedTab === id}
                                 >
+                                    <Icon className="w-6 h-6 rotate-90" /> {/* Inline SVG */}
                                     {label}
                                 </button>
                             </div>
@@ -463,15 +465,8 @@ export default function RecipePage() {
                         ))}
                     </ol>
 
-                        {/*prep*/}
-                        <h2 className={"text-xl font-semibold mb-2 text-gray-500"}>Preparation</h2>
-                        <ol className={"text-gray-500 list-decimal list-inside"}>
-                            {recipe.analyzedInstructions[0].steps.map((step) => (
-                                <li key={step.number}>{step.step}</li>
-                            ))}
-                        </ol>
                         {/* cuisines */}
-                        <ul className={"text-gray-500 list-disc list-inside"}>
+                        <ul className={"text-gray-500 list-disc list-inside mt-6"}>
                             <h3 className={"text-xl font-semibold mb-2 text-gray-500"}>Cuisines: </h3>
                             {recipe.cuisines.map((c, index) => <li key={index}>{c}</li>)}
                         </ul>
