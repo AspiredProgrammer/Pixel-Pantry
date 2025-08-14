@@ -397,7 +397,12 @@ export default function RecipePage() {
                                 <li key={step.number}>{step.step}</li>
                             ))}
                         </ol>
-
+                        {/* cuisines */}
+                        <ul className={"text-gray-500 list-disc list-inside"}>
+                            <h3 className={"text-xl font-semibold mb-2 text-gray-500"}>Cuisines: </h3>
+                            {recipe.cuisines.map((c, index) => <li key={index}>{c}</li>)}
+                        </ul>
+                        
 
                         {recipe.sourceUrl && (
                             <a
