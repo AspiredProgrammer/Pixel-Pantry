@@ -34,3 +34,16 @@ body {
   background-color: rgba(255, 255, 255, 0.8); /* white with 40% opacity */
   background-blend-mode: overlay; /* blends the color and image */
 }
+
+@media (min-width: 768px) {
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
+@media (max-width: 767px) {
+  .vertical-text {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}

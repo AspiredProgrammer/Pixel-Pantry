@@ -274,32 +274,37 @@ export default function RecipePage() {
 
     return (
         <div className="min-h-screen py-8">
-            <div className="max-w-4xl mx-auto px-4">
-                <div className="flex flex-col space-y-4 border-r border-gray-300 pr-6 min-w-[130px]">
+            <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row">
+                <div className="flex flex-col space-y-2">
                     {/* Tabs */}
-                    <div>
+                    <div className={"flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-2 sticky top-20 md:top-20 bg-white rounded"}>
                         {tabs.map(({ id, label }) => (
-                            <button
-                                key={id}
-                                onClick={() => setSelectedTab(id)}
-                                className={`transform transition duration-300 ease-in-out py-2 px-4 text-left font-semibold text-lg rounded
-          ${
-                                    selectedTab === id
-                                        ? "scale-110 border-b-4 border-amber-500 text-amber-600 bg-amber-100 shadow-md"
-                                        : "text-gray-600 hover:text-amber-500 hover:bg-amber-50"
-                                }
-        `}
-                                type="button"
-                                aria-selected={selectedTab === id}
-                                role="tab"
-                            >
-                                {label}
-                            </button>
+                            <div key={id} className={"bg-white rounded"}>
+                                <button
+                                    key={id}
+                                    onClick={() => setSelectedTab(id)}
+                                    className={`py-1 px-2 mb-1 md:py-2 md:px-4 text-left font-semibold text-lg rounded pointer-events-none cursor-default
+                                    ${
+                                        selectedTab === id
+                                            ? "scale-110 border-b-4 border-amber-500 text-amber-600 bg-amber-100 shadow-md"
+                                            : "text-gray-600 hover:text-amber-500 hover:bg-amber-50"
+                                    }
+                                    vertical-text
+                                    `}
+                                    type="button"
+                                    aria-selected={selectedTab === id}
+                                    role="tab"
+                                    disabled={selectedTab === id}
+                                >
+                                    {label}
+                                </button>
+                            </div>
                         ))}
                     </div>
                 </div>
+                {/*card*/}
                 <div className="bg-white rounded-lg shadow-lg p-8 relative inline-block">
-                    <h1 className={`absolute top-120 left-105 bg-amber-600/90 backdrop-blur-xs p-2 rounded-t-lg transform -translate-x-1/2 mb-1 font-bold text-amber-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl max-w-[500px] ${wordCount > 3 ? "break-words" : "whitespace-nowrap"}`}> {recipe.title}
+                    <h1 className={`absolute top-120 left-60 sm:left-70 lg:top-120 lg:left-105 bg-amber-600/90 backdrop-blur-xs p-2 rounded-lg transform -translate-x-1/2 mb-1 font-bold text-amber-100 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-5xl ${wordCount > 3 ? "break-words" : "whitespace-nowrap"}`}> {recipe.title}
                     </h1>
                     <img
                         src={recipe.image}
@@ -311,7 +316,7 @@ export default function RecipePage() {
                     {/*heart button*/}
                     <button
                         onClick={() => setLiked(!liked)}
-                        className={"z-10 rounded-full shadow-lg hover:scale-110 mb-10 absolute top-18 right-50 bg-white/80 p-2"}
+                        className={"z-10 rounded-full shadow-lg hover:scale-110 mb-10 absolute top-14 right-10 lg:top-18 lg:right-50 sm:right-20 bg-white/80 p-2"}
                         aria-label={liked ? "Unlike" : "Like"}
                     >
                         {liked ? (
@@ -347,8 +352,7 @@ export default function RecipePage() {
                     </button>
                     <div
                         className={"pb-6 flex space-x-4 gap-x-4 pt-30 text-gray-600 [&>p]:bg-gray-300/50 [&>p]:border-t-4 [&>p]:border-t-amber-400 [&>p]:px-2 [&>p]:py-2 [&>p]:rounded-full [&>p]:shadow-lg [&>p]:flex [&>p]:items-center [&>p]:gap-1"}>
-                        {recipe.readyInMinutes != null &&
-                            <p><ClockIcon className={"text-amber-600 w-5"}/> {recipe.readyInMinutes} minutes</p>}
+                        {recipe.readyInMinutes != null && <p><ClockIcon className={"text-amber-600 w-5"}/> {recipe.readyInMinutes} minutes</p>}
                         {recipe.servings != null && <p><UserGroupIcon className={"text-amber-500 w-5"}/> Servings: {recipe.servings}</p>}
                         {recipe.cookingMinutes != null && <p><FireIcon className={"text-amber-600 w-5"}/> Cook time: {recipe.cookingMinutes}</p>}
                         {recipe.healthScore != null && <p><HeartIcon className={"text-amber-600 w-5"}/> Health Score: {recipe.healthScore}</p>}
@@ -391,8 +395,8 @@ export default function RecipePage() {
                         </div>
                     </div>
                         {/*prep*/}
-                        <h2 className={"text-xl font-semibold mb-2 text-gray-500"}>Preparation</h2>
-                        <ol className={"text-gray-500 list-decimal list-inside"}>
+                        <h2 className={"mt-10 text-xl font-semibold mb-2 text-gray-500"}>Preparation</h2>
+                        <ol className={"text-gray-500 list-decimal list-inside [&>li]:rounded-full [&>li]:shadow-lg [&>li]:p-5 [&>li]:m-2"}>
                             {recipe.analyzedInstructions[0].steps.map((step) => (
                                 <li key={step.number}>{step.step}</li>
                             ))}
